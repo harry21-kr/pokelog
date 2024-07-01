@@ -1,5 +1,11 @@
+import PokemonList from "@/components/Pokemon/PokemonList";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <PokemonList />
+    </div>
+  );
 };
 
 export default HomePage;
