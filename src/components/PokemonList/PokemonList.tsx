@@ -17,7 +17,7 @@ const PokemonList = () => {
   }, [pokemonList]);
 
   return (
-    <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-5 gap-y-8">
+    <ul className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-x-5 gap-y-8">
       {pokemonList.map((pokemon) => (
         <li key={pokemon.id} className="bg-gray-800">
           <h6>{pokemon.korean_name}</h6>
