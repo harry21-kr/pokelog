@@ -7,7 +7,7 @@ interface PokemonDetailProps {
 
 const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
   return (
-    <div className="border-[3px] border-black p-12 flex justify-between items-center min-h-[600px] min-w-[300px] max-w-[960px] w-full md:flex-row flex-col mx-auto">
+    <div className="border-[3px] p-12 flex justify-between items-center min-h-[600px] min-w-[300px] max-w-[960px] w-full md:flex-row flex-col mx-auto">
       <div className="relative aspect-square w-full md:w-1/2">
         <Image
           src={pokemon.sprites.front_default}
