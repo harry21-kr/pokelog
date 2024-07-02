@@ -1,4 +1,4 @@
-import PokemonList from "@/components/PokemonList/PokemonList";
+import PokemonList from "@/components/HomePage/PokemonList/PokemonList";
 import axios, { AxiosResponse } from "axios";
 
 async function getPokemonList() {

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Chip from "../Chip/Chip";
+import Chip from "../common/Chip/Chip";
 
 interface PokemonDetailProps {
   pokemon: Pokemon;

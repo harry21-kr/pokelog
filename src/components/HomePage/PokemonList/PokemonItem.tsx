@@ -1,6 +1,6 @@
+import Chip from "@/components/common/Chip/Chip";
 import Image from "next/image";
 import Link from "next/link";
-import Chip from "../Chip/Chip";
 
 interface PokemonItemProps {
   pokemon: Pokemon;

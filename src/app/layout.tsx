@@ -1,5 +1,5 @@
-import Header from "@/components/Header/Header";
 import Providers from "@/components/Provider/Providers";
+import Header from "@/components/common/Header/Header";
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_KR } from "next/font/google";
 import "./globals.css";
