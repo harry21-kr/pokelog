@@ -1,10 +1,13 @@
 import Header from "@/components/Header/Header";
 import Providers from "@/components/Provider/Providers";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans_KR } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const IBM = IBM_Plex_Sans_KR({
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={IBM.className}>
         <Providers>
           <Header />
           <main className="flex flex-col items-center px-8 md:px-12 min-h-screen bg-[#191B1D] text-white">
