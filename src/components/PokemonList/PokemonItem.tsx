@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Chip from "../Chip/Chip";
 
 interface PokemonItemProps {
   pokemon: Pokemon;
@@ -19,14 +20,14 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon }) => {
             priority
           />
         </div>
-        <div className="pt-2 pl-2">
+        <div className="pt-2 pl-2 flex flex-col gap-1">
           <h5 className="text-gray-400 font-semibold">No.{pokemon.id}</h5>
           <h6 className="text-lg font-bold">{pokemon.korean_name}</h6>
           <div className="flex items-center gap-1">
             {pokemon.types.map((v, idx) => (
-              <div key={idx} className="bg-blue-500">
-                <p className="text-white">{v.type.name}</p>
-              </div>
+              <Chip key={idx} type={v.type.name}>
+                {v.type.name}
+              </Chip>
             ))}
           </div>
         </div>
