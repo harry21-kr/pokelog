@@ -13,8 +13,10 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ initialPokemon }) => {
   const { id } = useParams();
   const { data: pokemon } = useQuery<Pokemon>({
     queryKey: ["pokemon", id],
-    queryFn: async () =>
-      (await axios.get(`http://localhost:3000/api/pokemons/${id}`)).data,
+    queryFn: async () => {
+      const res = await axios.get(`http://localhost:3000/api/pokemons/${id}`);
+      return res.data;
+    },
     initialData: initialPokemon,
   });
 

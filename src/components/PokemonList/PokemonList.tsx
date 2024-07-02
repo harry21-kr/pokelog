@@ -11,8 +11,10 @@ interface PokemonListProps {
 const PokemonList: React.FC<PokemonListProps> = ({ initialPokemonList }) => {
   const { data: pokemonList } = useQuery<Pokemon[]>({
     queryKey: ["pokemonList"],
-    queryFn: async () =>
-      (await axios.get("http://localhost:3000/api/pokemons")).data,
+    queryFn: async () => {
+      const res = await axios.get("http://localhost:3000/api/pokemons");
+      return res.data;
+    },
     initialData: initialPokemonList,
   });
 
