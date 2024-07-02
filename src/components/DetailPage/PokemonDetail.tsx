@@ -1,25 +1,10 @@
-"use client";
-
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 
 interface PokemonDetailProps {
-  initialPokemon: Pokemon;
+  pokemon: Pokemon;
 }
 
-const PokemonDetail: React.FC<PokemonDetailProps> = ({ initialPokemon }) => {
-  const { id } = useParams();
-  const { data: pokemon } = useQuery<Pokemon>({
-    queryKey: ["pokemon", id],
-    queryFn: async () => {
-      const res = await axios.get(`http://localhost:3000/api/pokemons/${id}`);
-      return res.data;
-    },
-    initialData: initialPokemon,
-  });
-
+const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
   return (
     <div>
       <h4>{pokemon.korean_name}</h4>

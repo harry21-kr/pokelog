@@ -10,7 +10,7 @@ async function getPokemonById(id: string) {
 
 const DetailPage = async ({ params }: { params: { id: string } }) => {
   const initialPokemon = await getPokemonById(params.id);
-  return <PokemonDetail initialPokemon={initialPokemon} />;
+  return <PokemonDetail pokemon={initialPokemon} />;
 };
 
 export default DetailPage;
