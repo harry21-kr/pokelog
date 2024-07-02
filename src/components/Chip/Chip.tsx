@@ -1,7 +1,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import { PropsWithChildren } from "react";
 
-const chipVariant = cva("text-white px-2.5 py-1 rounded-full", {
+const chipVariant = cva("text-white px-2.5 py-1 rounded-full text-center", {
   variants: {
     type: {
       normal: "bg-[#A8A77A]",

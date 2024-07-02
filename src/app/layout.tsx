@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <main className="flex flex-col items-center px-12 min-h-screen">
+          <main className="flex flex-col items-center px-8 md:px-12 min-h-screen bg-[#191B1D] text-white">
             <div className="w-full max-w-[1224px]">{children}</div>
           </main>
         </Providers>
