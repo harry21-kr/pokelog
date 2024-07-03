@@ -2,6 +2,7 @@ type Pokemon = {
   id: number;
   name: string;
   korean_name: string;
+  korean_flavor_text: string;
   height: number;
   weight: number;
   sprites: { front_default: string };

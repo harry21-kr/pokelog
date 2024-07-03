@@ -28,6 +28,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
             ))}
           </div>
         </div>
+        <p className="break-keep">{pokemon.korean_flavor_text}</p>
         <div className="flex flex-col gap-1 w-fit">
           <p className="font-bold text-lg">기술</p>
           <div className="flex gap-1 items-center">

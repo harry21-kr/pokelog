@@ -34,6 +34,10 @@ export async function getPokemonById(id: string) {
     `https://pokeapi.co/api/v2/pokemon-species/${id}`
   );
 
+  const koreanFlavorText = speciesResponse.data.flavor_text_entries.find(
+    (v: any) => v.language.name === "ko"
+  );
+
   const koreanName = speciesResponse.data.names?.find(
     (name: any) => name.language.name === "ko"
   );
@@ -77,6 +81,7 @@ export async function getPokemonById(id: string) {
   const pokemonData = {
     ...response.data,
     korean_name: koreanName?.name || response.data.name,
+    korean_flavor_text: koreanFlavorText.flavor_text,
     types: typesWithKoreanNames,
     abilities: abilitiesWithKoreanNames,
     moves: movesWithKoreanNames,
