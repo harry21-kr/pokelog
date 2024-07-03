@@ -1,16 +1,8 @@
 import PokemonList from "@/components/HomePage/PokemonList/PokemonList";
-import axios, { AxiosResponse } from "axios";
-
-async function getPokemonList() {
-  const res: AxiosResponse<Pokemon[]> = await axios.get(
-    "http://localhost:3000/api/pokemons"
-  );
-  return res.data;
-}
+import { getPokemonList } from "@/utils/api/api";
 
 const HomePage = async () => {
   const initialPokemonList = await getPokemonList();
-
   return <PokemonList initialPokemonList={initialPokemonList} />;
 };
 

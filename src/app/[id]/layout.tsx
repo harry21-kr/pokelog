@@ -1,6 +1,6 @@
+import { getPokemonById } from "@/utils/api/api";
 import { Metadata } from "next";
 import { PropsWithChildren } from "react";
-import { getPokemonById } from "./page";
 
 export async function generateMetadata({
   params,
