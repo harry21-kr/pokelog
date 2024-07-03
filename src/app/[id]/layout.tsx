@@ -1,4 +1,19 @@
+import { Metadata } from "next";
 import { PropsWithChildren } from "react";
+import { getPokemonById } from "./page";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const id = params.id;
+  const pokemon = await getPokemonById(id);
+  return {
+    title: `포켓위키 - ${pokemon.korean_name}`,
+    description: pokemon.korean_name,
+  };
+}
 
 const DetailPageLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
