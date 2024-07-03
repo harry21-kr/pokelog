@@ -9,8 +9,8 @@ interface PokemonItemProps {
 const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon }) => {
   return (
     <li key={pokemon.id}>
-      <Link href={`/${pokemon.name}`}>
-        <div className="relative aspect-square border-gray-300 border rounded">
+      <Link href={`/${pokemon.name}`} className="group">
+        <div className="relative aspect-square border-gray-300 border rounded group-hover:scale-110 group-hover:bg-gray-700 transition">
           <Image
             src={pokemon.sprites.front_default}
             alt={pokemon.name}
