@@ -1,9 +1,9 @@
 import PokemonList from "@/components/HomePage/PokemonList/PokemonList";
-import { getPokemonList } from "@/utils/api/api";
+import { getPokemonInfoList } from "@/utils/api/api";
 
 const HomePage = async () => {
-  const initialPokemonList = await getPokemonList();
-  return <PokemonList initialPokemonList={initialPokemonList} />;
+  const initialPokemonData = await getPokemonInfoList("0");
+  return <PokemonList initialPokemonData={initialPokemonData} />;
 };
 
 export default HomePage;

@@ -1,3 +1,15 @@
+type PokemonRawData = {
+  count: string;
+  next: string | null;
+  previous: string | null;
+  results: {
+    name: string;
+    url: string;
+  }[];
+};
+
+type PokemonData = { results: Pokemon[] } & Omit<PokemonRawData, "results">;
+
 type Pokemon = {
   id: number;
   name: string;

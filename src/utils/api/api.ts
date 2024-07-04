@@ -1,31 +1,36 @@
 import axios from "axios";
 
-const TOTAL_POKEMON = 151;
-
-export async function getPokemonList() {
-  const allPokemonPromises = Array.from(
-    { length: TOTAL_POKEMON },
-    (_, index) => {
-      const id = index + 1;
-      return Promise.all([
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`),
-        axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`),
-      ]);
-    }
+export async function getPokemonRawData(offset: string) {
+  const res = await fetch(
+    `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=24`
   );
+  const pokemonRawData: PokemonRawData = await res.json();
+  return pokemonRawData;
+}
 
-  const allPokemonResponses = await Promise.all(allPokemonPromises);
+export async function getPokemonInfoById(id: string) {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const pokemonInfo = await res.json();
+  return pokemonInfo;
+}
 
-  const allPokemonData = allPokemonResponses.map(
-    ([response, speciesResponse]) => {
-      const koreanName = speciesResponse.data.names.find(
-        (name: any) => name.language.name === "ko"
-      );
-      return { ...response.data, korean_name: koreanName?.name || null };
-    }
+export async function getPokemonSpeciesById(id: string) {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+  const pokemonSpecies = await res.json();
+  return pokemonSpecies;
+}
+
+export async function getPokemonInfoList(offset: string) {
+  const pokemonRawData = await getPokemonRawData(offset);
+  const pokemonInfoList = await Promise.all(
+    pokemonRawData.results.map(({ name }) => getPokemonInfoById(name))
   );
+  const pokemonData: PokemonData = {
+    ...pokemonRawData,
+    results: pokemonInfoList,
+  };
 
-  return allPokemonData;
+  return pokemonData;
 }
 
 export async function getPokemonById(id: string) {
