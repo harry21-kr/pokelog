@@ -19,7 +19,7 @@ const PokemonDetailNav: React.FC = () => {
   };
 
   const handleGoBack = () => {
-    router.back();
+    router.push("/");
   };
 
   return (
@@ -34,7 +34,7 @@ const PokemonDetailNav: React.FC = () => {
         onClick={handleGoBack}
         className="bg-white text-black px-2 py-1.5 text-sm sm:text-base rounded hover:brightness-75 transition"
       >
-        돌아가기
+        목록으로 돌아가기
       </button>
       <button
         onClick={handleLinkNextPage}
