@@ -1,4 +1,4 @@
-import { getPokemonById } from "@/utils/api/api";
+import { getPokemonDetailInfoById } from "@/utils/api/api";
 import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 
@@ -8,7 +8,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const id = params.id;
-  const pokemon = await getPokemonById(id);
+  const pokemon = await getPokemonDetailInfoById(id);
   return {
     title: `포켓위키 - ${pokemon.korean_name}`,
     description: pokemon.korean_name,

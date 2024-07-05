@@ -1,9 +1,9 @@
 import PokemonDetail from "@/components/DetailPage/PokemonDetail";
-import { getPokemonById } from "@/utils/api/api";
+import { getPokemonDetailInfoById } from "@/utils/api/api";
 
 const DetailPage = async ({ params }: { params: { id: string } }) => {
-  const initialPokemon = await getPokemonById(params.id);
-  return <PokemonDetail pokemon={initialPokemon} />;
+  const pokemonDetailInfo = await getPokemonDetailInfoById(params.id);
+  return <PokemonDetail pokemon={pokemonDetailInfo} />;
 };
 
 export default DetailPage;

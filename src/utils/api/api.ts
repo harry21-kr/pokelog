@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export async function getPokemonRawData(offset: string) {
   const res = await fetch(
     `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=24`
@@ -20,6 +18,24 @@ export async function getPokemonSpeciesById(id: string) {
   return pokemonSpecies;
 }
 
+export async function getTypeByName(name: string) {
+  const res = await fetch(`https://pokeapi.co/api/v2/type/${name}`);
+  const type = await res.json();
+  return type;
+}
+
+export async function getAbilitiesByName(name: string) {
+  const res = await fetch(`https://pokeapi.co/api/v2/ability/${name}`);
+  const abilities = await res.json();
+  return abilities;
+}
+
+export async function getMoveByName(name: string) {
+  const res = await fetch(`https://pokeapi.co/api/v2/move/${name}`);
+  const move = await res.json();
+  return move;
+}
+
 export async function getPokemonInfoList(offset: string) {
   const pokemonRawData = await getPokemonRawData(offset);
   const pokemonInfoList = await Promise.all(
@@ -33,38 +49,34 @@ export async function getPokemonInfoList(offset: string) {
   return pokemonData;
 }
 
-export async function getPokemonById(id: string) {
-  const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-  const speciesResponse = await axios.get(
-    `https://pokeapi.co/api/v2/pokemon-species/${id}`
-  );
+export async function getPokemonDetailInfoById(id: string) {
+  const pokemonInfo = await getPokemonInfoById(id);
+  const pokemonSpecies = await getPokemonSpeciesById(id);
 
-  const koreanFlavorText = speciesResponse.data.flavor_text_entries.find(
+  const koreanFlavorText = pokemonSpecies.flavor_text_entries.find(
     (v: any) => v.language.name === "ko"
   );
 
-  const koreanName = speciesResponse.data.names?.find(
+  const koreanName = pokemonSpecies.names?.find(
     (name: any) => name.language.name === "ko"
   );
 
-  const typesWithKoreanNames = await Promise.all(
-    response.data.types.map(async (type: any) => {
-      const typeResponse = await axios.get(type.type.url);
+  const pokemonTypes = await Promise.all(
+    pokemonInfo.types.map(async (type: any) => {
+      const typeResponse = await getTypeByName(type.type.name);
       const koreanTypeName =
-        typeResponse.data.names?.find(
-          (name: any) => name.language.name === "ko"
-        )?.name || type.type.name;
+        typeResponse.names?.find((name: any) => name.language.name === "ko")
+          ?.name || type.type.name;
       return { ...type, type: { ...type.type, korean_name: koreanTypeName } };
     })
   );
 
-  const abilitiesWithKoreanNames = await Promise.all(
-    response.data.abilities.map(async (ability: any) => {
-      const abilityResponse = await axios.get(ability.ability.url);
+  const pokemonAbilities = await Promise.all(
+    pokemonInfo.abilities.map(async (ability: any) => {
+      const abilityResponse = await getAbilitiesByName(ability.ability.name);
       const koreanAbilityName =
-        abilityResponse.data.names?.find(
-          (name: any) => name.language.name === "ko"
-        )?.name || ability.ability.name;
+        abilityResponse.names?.find((name: any) => name.language.name === "ko")
+          ?.name || ability.ability.name;
       return {
         ...ability,
         ability: { ...ability.ability, korean_name: koreanAbilityName },
@@ -72,25 +84,24 @@ export async function getPokemonById(id: string) {
     })
   );
 
-  const movesWithKoreanNames = await Promise.all(
-    response.data.moves.map(async (move: any) => {
-      const moveResponse = await axios.get(move.move.url);
+  const pokemonMoves = await Promise.all(
+    pokemonInfo.moves.map(async (move: any) => {
+      const moveResponse = await getMoveByName(move.move.name);
       const koreanMoveName =
-        moveResponse.data.names?.find(
-          (name: any) => name.language.name === "ko"
-        )?.name || move.move.name;
+        moveResponse.names?.find((name: any) => name.language.name === "ko")
+          ?.name || move.move.name;
       return { ...move, move: { ...move.move, korean_name: koreanMoveName } };
     })
   );
 
-  const pokemonData = {
-    ...response.data,
-    korean_name: koreanName?.name || response.data.name,
+  const pokemonDetailInfo = {
+    ...pokemonInfo,
+    korean_name: koreanName?.name || pokemonInfo.name,
     korean_flavor_text: koreanFlavorText.flavor_text,
-    types: typesWithKoreanNames,
-    abilities: abilitiesWithKoreanNames,
-    moves: movesWithKoreanNames,
+    types: pokemonTypes,
+    abilities: pokemonAbilities,
+    moves: pokemonMoves,
   };
 
-  return pokemonData;
+  return pokemonDetailInfo;
 }
